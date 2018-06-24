@@ -10,10 +10,9 @@
 4. 模块加载路径 `package.path` 
 5. 环境变量 `LUA_PATH` 的设置
 6. 跨目录下的模块引用
-7. 执行环境
-8. 参考
-
-
+7. 缓存机制
+8. 执行环境
+9. 参考
 
 
 
@@ -285,6 +284,42 @@ withDraw	function: 0x7f93f9d00150
 效果完美。
 
 注意：由于 `package.path` 是全局的故一旦更新则会在当前项目内生效。
+
+
+
+## 缓存机制
+
+Lua 也类似其他大部分语言的模块导入机制，存在缓存机制，模块一旦导入有且只在第一次导入时执行一次模块内容。
+
+A.lua
+
+```lua
+local Account = require("Account")
+print(Account)
+```
+
+B.lua:
+
+```lua
+#!/usr/local/bin/lua
+
+package.path = ";./model/?.lua;" .. package.path
+
+require("A")
+
+local Account = require("Account")
+print(Account)
+```
+
+执行结果:
+
+```bash
+tangzixiang$ ./B.lua
+table: 0x7fabd8600880
+table: 0x7fabd8600880
+```
+
+可以看出 `Account` 对象只实例化了一次。
 
 
 

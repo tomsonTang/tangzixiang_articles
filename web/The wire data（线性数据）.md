@@ -1,4 +1,4 @@
-# The wire data（线性数据）
+# The wire data（wire 数据）
 
 本文为 [wiki](https://en.wikipedia.org/wiki/Wire_data) 上关于 **wire data** 的翻译，不保证准确性。
 
